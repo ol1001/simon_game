@@ -1,0 +1,60 @@
+.clearfix {
+  clear: both;
+}
+body {
+  background: url("../img/cream_pixels.png");
+}
+.simon-game-wrapper {
+  position: absolute;
+  left: 50%;
+  margin-left: -17.25rem;
+  margin-top: 11.5rem;
+  width: 34.5rem;
+  height: 34.5rem;
+  background-color: #3f3f3f;
+  border-radius: 50%;
+}
+.simon-game-button {
+  width: 15rem;
+  height: 15rem;
+}
+#green {
+  border-radius: 100% 0 0 0;
+  background-color: #43c638;
+  margin: 1.5rem 0.75rem 0.75rem 1.5rem;
+  float: left;
+}
+#red {
+  border-radius: 0 100% 0 0;
+  background-color: #f15e37;
+  float: right;
+  margin: 1.5rem 1.5rem 0.75rem 0.75rem;
+}
+#yellow {
+  border-radius: 0 0 0 100%;
+  background-color: #fcf549;
+  float: left;
+  margin: 0.75rem 0.75rem 1.5rem 1.5rem;
+}
+#blue {
+  border-radius: 0 0 100% 0;
+  background-color: #359bba;
+  float: right;
+  margin: 0.75rem 1.5rem 1.5rem 0.75rem;
+}
+.simon-game-control-panel-wrapper {
+  position: absolute;
+  margin-top: -25.5rem;
+  margin-left: 9rem;
+  width: 16.5rem;
+  height: 16.5rem;
+  background-color: #3f3f3f;
+  border-radius: 50%;
+}
+.simon-game-control-panel {
+  width: 14.25rem;
+  height: 14.25rem;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: 1.125rem 0 0 1.125rem;
+}
