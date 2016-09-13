@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simon's Game</title>
+    <link rel="stylesheet" href="public/css/style.css"/>
+</head>
+<body>
+
+<div class="simon-game-wrapper">
+    <div class="simon-game">
+        <div class="simon-game-button" id="green"></div>
+        <div class="simon-game-button" id="red"></div>
+        <br class="clearfix"/>
+
+        <div class="simon-game-button" id="yellow"></div>
+        <div class="simon-game-button" id="blue"></div>
+        <br class="clearfix"/>
+
+        <div class="simon-game-control-panel-wrapper">
+            <div class="simon-game-logo">simon<span class="small">&reg;</span></div>
+            <div class="simon-game-control-panel">
+                <div class="count-field"></div>
+                <button class="start-button"></button>
+                <button class="strict-button"></button>
+
+                <div class="button-labels">
+                    <ul>
+                        <li>count</li>
+                        <li>start</li>
+                        <li>strict</li>
+                    </ul>
+                </div>
+                <div class="switch-labels">
+                    <ul>
+                        <li>off</li>
+                        <li>on</li>
+                    </ul>
+                </div>
+                <div class="switch-wrapper">
+                    <ul class="switch-button">
+                        <li id="off" class="switch-active"></li>
+                        <li id="on" class="switch-passive"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="colors">
+    <div class="light"></div>
+    <div class="dark"></div>
+</div>
+<script src="./public/js/libs/jquery-2.2.4.min.js"></script>
+<script src="./public/js/bundle.js"></script>
+</body>
+</html>

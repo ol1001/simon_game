@@ -1,0 +1,133 @@
+@font-face {
+  font-family: CaviarDreams;
+  src: url(../fonts/CaviarDreams.ttf);
+}
+
+@font-face {
+  font-family: Coda-Heavy;
+  src: url(../fonts/Coda-Heavy.ttf);
+}
+
+.simon-game-switcher-wrapper {
+  position: absolute;
+  left: 50%;
+  margin-left: -32/16rem;
+  top: 5%;
+  width: 64/16rem;
+  height: 64/16rem;
+  background: #3f3f3f;
+  background: radial-gradient(#3f3f3f 50%, #212121);
+  border-radius: 50%;
+}
+.simon-game-switcher-button {
+  position: absolute;
+  left: 50%;
+  top:50%;
+  margin-left: -6/16rem;
+  margin-top: -6/16rem;
+  width: 12/16rem;
+  height: 12/16rem;
+  background: #fff;
+  box-shadow: 0px 3px 1px 2px #1d1d1d;
+  border: none;
+  border-radius: 50%;
+}
+.simon-game-count {
+  position: absolute;
+  left: 50%;
+  margin-left: -45/16rem;
+  top:14%;
+  width: 90/16rem;
+  height: 90/16rem;
+  background: #fff;
+  background: radial-gradient(#fff 45%, #fafafa);
+  border-radius: 50%;
+  line-height: 90/16rem;
+  color: #3f3f3f;
+  text-align: center;
+  font-size: 2.8rem;
+  z-index: 10;
+  font-family: CaviarDreams, sans-serif;
+}
+.simon-game-butterfly {
+  position: absolute;
+  left: 50%;
+  margin-left: -300/16rem;
+  top:45%;
+  margin-top: -300/16rem;
+  width: 600/16rem;
+  height: 600/16rem;
+  background: radial-gradient(#3f3f3f 50%, #212121);
+  border-radius: 50%;
+  z-index: 5;
+}
+
+svg {
+  position: absolute;
+  top: 92/16rem;
+  height: 480/16rem;
+  left:50%;
+  margin-left: -300/16rem;
+  width: 600/16rem;
+}
+path {
+  fill-rule:evenodd;
+}
+
+path#red-wing {
+  fill:#ff2a2a;
+  fill-rule:evenodd;
+}
+
+path#blue-wing {
+  fill:#00aad4;
+}
+
+path#green-wing {
+  fill:#88aa00;
+}
+
+path#yellow-wing {
+  fill:#ffd42a;
+}
+
+path.mustaches {
+  fill:#fff;
+}
+.simon-game-logo {
+  position: absolute;
+  width: 11.5rem;
+  bottom: 5%;
+  left: 50%;
+  margin-left: -94px;
+  font-family: Coda-Heavy;
+  text-transform: uppercase;
+  color: #3f3f3f;
+  font-size: 2.5em;
+  border: 2px solid #3f3f3f;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #fff;
+}
+span.small {
+  font-size: 0.4em;
+  vertical-align: text-top;
+}
+#green-wing, #red-wing {
+  -webkit-animation: fly_top 12.5s infinite;
+  animation: fly_top 12.5s infinite;
+}
+#yellow-wing, #blue-wing {
+  -webkit-animation: fly 12.5s infinite;
+  animation: fly 12.5s infinite;
+}
+@keyframes fly {
+  10% { transform: rotateX(16deg)}
+  80% { transform: rotateX(-16deg)}
+}
+
+
+@keyframes fly_top {
+  10% { transform: rotateX(14deg)}
+  80% { transform: rotateX(-14deg)}
+}
