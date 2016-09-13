@@ -8,11 +8,30 @@ MySimon.gameHelpers = function () {
 
         el.css("background-color", lightenColor(elementID));
 
-        var colorTimer = setTimeout(function () {
+        var blinkTimer = setTimeout(function () {
          el.css("background-color", elColor);
-         clearInterval(colorTimer);
-         }, 100);
+         playSound(elementID);
+         clearInterval(blinkTimer);
+         }, 200);
     };
+
+    var playSound = function (currentButton) {
+        var soundsMap = {
+            'blue':'https://s3.amazonaws.com/freecodecamp/simonSound1.mp3',
+            'green':'https://s3.amazonaws.com/freecodecamp/simonSound2.mp3',
+            'red':'https://s3.amazonaws.com/freecodecamp/simonSound3.mp3',
+            'yellow':'https://s3.amazonaws.com/freecodecamp/simonSound4.mp3'
+        };
+
+        //console.log(soundsMap[currentButton]);
+
+        var path = soundsMap[currentButton];
+        var audioElement = document.createElement('audio');
+
+        audioElement.setAttribute('src', path);
+        audioElement.play();
+    };
+
     var setGameSequence = function () {
         var gameSequence = [];
         for (var i = 0; i < gameSequenceLength; i++) {

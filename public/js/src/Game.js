@@ -10,7 +10,7 @@ MySimon = (function () {
     return {
         gameStatus: SIMON_GAME_OFF,
         gameButtonsMap: ["green", "red", "yellow", "blue"],
-        gameCounter: null,
+        gameCounter: 0,
         compSequence: [],
         userSequence: [],
         whoMove: COMP_MOVE
@@ -31,14 +31,16 @@ MySimon.gameEngine = function () {
 
     var runGame = function () {
         console.log(this.compSequence);
+
         if (this.compSequence.length) {
+            MySimon.gameHelpers.blinkButton(this.compSequence[this.gameCounter]);
 
         }
     };
 
     var stopGame = function(){
         MySimon.gameStatus = SIMON_GAME_OFF;
-        MySimon.gameCounter = null;
+        MySimon.gameCounter = 0;
         MySimon.compSequence = [];
         MySimon.userSequence = [];
         MySimon.whoMove = COMP_MOVE;
