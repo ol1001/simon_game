@@ -17,7 +17,7 @@ MySimon.gameHandlers = function () {
 
     var handleStart = function (e) {
 
-        if (MySimon.gameStatus === SIMON_GAME_ON) {
+        if (MySimon.gameStatus === SIMON_GAME_ON && MySimon.compSequence.length == 0) {
 
             MySimon.gameEngine.gameInit(MySimon.gameHelpers.setGameSequence());
             MySimon.gameStatus = SIMON_GAME_RUNNING;

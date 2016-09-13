@@ -1,0 +1,22 @@
+{
+  "name": "fcc_simon",
+  "version": "1.0.0",
+  "description": "simon's game",
+  "main": "index.html",
+  "dependencies": {
+    "babel-cli": "^6.11.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "babel ./public/js/src --out-file ./public/js/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ol1001/simon_game.git"
+  },
+  "author": "ol1001",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ol1001/simon_game/issues"
+  }
+}
