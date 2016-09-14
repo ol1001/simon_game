@@ -5,6 +5,7 @@ MySimon.gameHandlers = function () {
 
         if (el.toLocaleUpperCase() == SIMON_GAME_ON){
             switchElClasses('on', 'off');
+
         } else {
             switchElClasses('off', 'on');
             MySimon.gameEngine.stopGame();
@@ -19,7 +20,8 @@ MySimon.gameHandlers = function () {
 
         if (MySimon.gameStatus === SIMON_GAME_ON && MySimon.compSequence.length == 0) {
 
-            MySimon.gameEngine.gameInit(MySimon.gameHelpers.setGameSequence());
+            MySimon.gameEngine.startGame();
+           // MySimon.gameEngine.gameInit(MySimon.gameHelpers.setGameSequence());
             MySimon.gameStatus = SIMON_GAME_RUNNING;
         }
     };

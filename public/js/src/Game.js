@@ -10,10 +10,7 @@ MySimon = (function () {
     return {
         gameStatus: SIMON_GAME_OFF,
         gameButtonsMap: ["green", "red", "yellow", "blue"],
-        gameCounter: 0,
-        compSequence: [],
-        userSequence: [],
-        whoMove: COMP_MOVE
+        compSequence: []
     };
 })();
 
@@ -25,41 +22,54 @@ MySimon.gameEngine = function () {
         sequence.forEach(function (el) {
             MySimon.compSequence.push(MySimon.gameButtonsMap[el]);
         });
-
-        runGame.call(MySimon);
+            this.gameCounter = 3;
+            this.whoMove = COMP_MOVE;
     };
 
     var runGame = function () {
-        console.log(this.compSequence);
-
-        if (this.compSequence.length) {
-            MySimon.gameHelpers.blinkButton(this.compSequence[this.gameCounter]);
-
+        if (MySimon.compSequence.length) {
+            runComp.call(MySimon);
         }
     };
+    var startGame = function(){
+        gameInit.call(MySimon, MySimon.gameHelpers.setGameSequence());
+        runGame();
+    };
 
-    var stopGame = function(){
+    var stopGame = function () {
         MySimon.gameStatus = SIMON_GAME_OFF;
         MySimon.gameCounter = 0;
         MySimon.compSequence = [];
         MySimon.userSequence = [];
         MySimon.whoMove = COMP_MOVE;
+        // to-do: clear timers
+        clearTimers.call(MySimon);
     };
 
+    function clearTimers() {
+        console.log(this.compTimer);
+        clearTimeout(this.compTimer);
+    }
+
     var runComp = function () {
-        console.log(whoMove);
-        if (whoMove === COMP_MOVE) {
+        var that = this;
+        console.log(that.compSequence);
+
+        if (that.whoMove === COMP_MOVE) {
             var i = 0;
-            var compTimer = setTimeout(function runSequence() {
-                if (i < gameRoundCounter) {
-                    MySimon.gameHelpers.blinkButton(compSequence[i++]);
+            MySimon.compTimer = setTimeout(function runSequence() {
+                if (i <= that.gameCounter) {
+                    MySimon.gameHelpers.blinkButton(that.compSequence[i++]);
+                    console.log(i);
+                    MySimon.compTimer = setTimeout(runSequence, 800);
                 } else {
-                    clearTimeout(compTimer);
-                    whoMove = USER_MOVE;
+                    console.log("clear timeout");
+                    clearTimeout(MySimon.compTimer);
                 }
-                compTimer = setTimeout(runSequence, 800);
             }, 800);
         }
+
+
     };
 
     var runUser = function (userMove) {
@@ -95,8 +105,7 @@ MySimon.gameEngine = function () {
     };
 
     return {
-        gameInit: gameInit,
-        runUser: runUser,
+        startGame: startGame,
         stopGame: stopGame
     }
 }();
