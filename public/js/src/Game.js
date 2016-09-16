@@ -10,7 +10,9 @@ MySimon = (function () {
     return {
         gameStatus: SIMON_GAME_OFF,
         gameButtonsMap: ["green", "red", "yellow", "blue"],
-        compSequence: []
+        compSequence: [],
+        userSequence: [],
+        gameSequenceLength:20
     };
 })();
 
@@ -22,33 +24,35 @@ MySimon.gameEngine = function () {
         sequence.forEach(function (el) {
             MySimon.compSequence.push(MySimon.gameButtonsMap[el]);
         });
-            this.gameCounter = 3;
-            this.whoMove = COMP_MOVE;
+        this.gameRound = 0;
+        this.whoMove = COMP_MOVE;
     };
 
     var runGame = function () {
         if (MySimon.compSequence.length) {
+
+            // add recursive setTimeout for controlled game loop
             runComp.call(MySimon);
         }
     };
-    var startGame = function(){
+    var startGame = function () {
         gameInit.call(MySimon, MySimon.gameHelpers.setGameSequence());
         runGame();
     };
 
     var stopGame = function () {
         MySimon.gameStatus = SIMON_GAME_OFF;
-        MySimon.gameCounter = 0;
+        MySimon.gameRound = 0;
         MySimon.compSequence = [];
         MySimon.userSequence = [];
         MySimon.whoMove = COMP_MOVE;
-        // to-do: clear timers
+        // clear timers
         clearTimers.call(MySimon);
     };
 
     function clearTimers() {
-        console.log(this.compTimer);
         clearTimeout(this.compTimer);
+        clearTimeout(this.gameTimer);
     }
 
     var runComp = function () {
@@ -58,54 +62,78 @@ MySimon.gameEngine = function () {
         if (that.whoMove === COMP_MOVE) {
             var i = 0;
             MySimon.compTimer = setTimeout(function runSequence() {
-                if (i <= that.gameCounter) {
+                if (i <= that.gameRound) {
                     MySimon.gameHelpers.blinkButton(that.compSequence[i++]);
-                    console.log(i);
                     MySimon.compTimer = setTimeout(runSequence, 800);
                 } else {
-                    console.log("clear timeout");
                     clearTimeout(MySimon.compTimer);
+
+                    // run user
+                    MySimon.whoMove = USER_MOVE;
+
+                    /* setTimeout(function(){
+                     // check if user run
+                     },2000);*/
                 }
             }, 800);
         }
-
-
     };
 
-    var runUser = function (userMove) {
-        console.log(whoMove);
-        if (whoMove === USER_MOVE) {
-            currentUserMove = userMove;
 
-            if (userSequence.length < gameRoundCounter) {
-                checkUser(isUserRight(currentUserMove, userMoveNumber));
-            } else {
-                whoMove = COMP_MOVE;
-                console.log("round is over");
-            }
-        }
+    var isUserRight = function (userMoveNumber) {
+        return MySimon.compSequence[userMoveNumber] === MySimon.userSequence[userMoveNumber];
     };
 
-    var isUserRight = function (userMove, userMoveNumber) {
-        return compSequence[userMoveNumber] === userMove;
-    };
+    var checkUser = function (userMove) {
+        MySimon.userSequence.push(userMove);
 
-    var checkUser = function (isUserRight) {
-        if (isUserRight) {
-            console.log(userMoveNumber);
-            userSequence.push(currentUserMove);
-            console.log(userSequence);
-            MySimon.gameHelpers.blinkButton(currentUserMove);
-            userMoveNumber++;
+        if (isUserRight(MySimon.userSequence.length - 1)) {
+
+            // if user is right
+            MySimon.gameHelpers.blinkButton(userMove);
+            checkIfNextRoundNeeded(MySimon.userSequence.length - 1);
+
         } else {
-            // if user sequence incorrect - repeat compSequence
-            whoMove = COMP_MOVE;
-            runComp();
+
+            // if user is wrong
+            MySimon.gameHelpers.playSound('wrong');
+            MySimon.userSequence = [];
+            MySimon.whoMove = COMP_MOVE;
+            MySimon.gameTimer = setTimeout(function () {
+                runComp.call(MySimon);
+                clearTimeout(MySimon.gameTimer);
+            }, 1500);
         }
+
     };
+
+    function checkIfNextRoundNeeded(userRound) {
+        checkIfUserWin(userRound+1);
+
+        if (userRound == MySimon.gameRound) {
+            MySimon.gameRound++;
+            MySimon.userSequence = [];
+            MySimon.whoMove = COMP_MOVE;
+
+            MySimon.gameTimer = setTimeout(function () {
+                runComp.call(MySimon);
+                clearTimeout(MySimon.gameTimer);
+            }, 800);
+        }
+    }
+
+    function checkIfUserWin(userSequenceLength) {
+        console.log(userSequenceLength);
+        console.log(MySimon.compSequence.length);
+        if (userSequenceLength == MySimon.compSequence.length) {
+            alert("You are win!");
+            stopGame();
+        }
+    }
 
     return {
         startGame: startGame,
-        stopGame: stopGame
+        stopGame: stopGame,
+        checkUser: checkUser
     }
 }();

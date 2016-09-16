@@ -1,31 +1,29 @@
 MySimon.gameHelpers = function () {
-    var gameSequenceLength = 20;
 
     var blinkButton = function (elementID) {
-        console.log(elementID);
-        var el = $("#"+elementID);
+        var el = $("#" + elementID);
         var elColor = el.css("background-color");
 
         el.css("background-color", lightenColor(elementID));
+        playSound(elementID);
 
         var blinkTimer = setTimeout(function () {
-         el.css("background-color", elColor);
-         playSound(elementID);
-         clearInterval(blinkTimer);
-         }, 200);
+            el.css("background-color", elColor);
+            clearTimeout(blinkTimer);
+        }, 100);
+
     };
 
-    var playSound = function (currentButton) {
+    var playSound = function (sound) {
         var soundsMap = {
-            'blue':'https://s3.amazonaws.com/freecodecamp/simonSound1.mp3',
-            'green':'https://s3.amazonaws.com/freecodecamp/simonSound2.mp3',
-            'red':'https://s3.amazonaws.com/freecodecamp/simonSound3.mp3',
-            'yellow':'https://s3.amazonaws.com/freecodecamp/simonSound4.mp3'
+            'blue': 'https://s3.amazonaws.com/freecodecamp/simonSound1.mp3',
+            'green': 'https://s3.amazonaws.com/freecodecamp/simonSound2.mp3',
+            'red': 'https://s3.amazonaws.com/freecodecamp/simonSound3.mp3',
+            'yellow': 'https://s3.amazonaws.com/freecodecamp/simonSound4.mp3',
+            'wrong': 'http://www.soundjay.com/button/beep-10.mp3'
         };
 
-        //console.log(soundsMap[currentButton]);
-
-        var path = soundsMap[currentButton];
+        var path = soundsMap[sound];
         var audioElement = document.createElement('audio');
 
         audioElement.setAttribute('src', path);
@@ -34,7 +32,7 @@ MySimon.gameHelpers = function () {
 
     var setGameSequence = function () {
         var gameSequence = [];
-        for (var i = 0; i < gameSequenceLength; i++) {
+        for (var i = 0; i < MySimon.gameSequenceLength; i++) {
             gameSequence.push(getRandomInt(0, 4));
         }
         return gameSequence;
@@ -57,6 +55,7 @@ MySimon.gameHelpers = function () {
 
     return {
         setGameSequence: setGameSequence,
-        blinkButton: blinkButton
+        blinkButton: blinkButton,
+        playSound: playSound
     }
 }();
